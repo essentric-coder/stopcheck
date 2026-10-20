@@ -1,1 +1,1 @@
-"""Optional local web dashboard. Uses only the Python standard library."""
+"""Optional local web dashboard: FastAPI backend plus a compiled React frontend."""

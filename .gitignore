@@ -1,6 +1,7 @@
 __pycache__/
 *.pyc
 .venv/
+frontend/node_modules/
 # Runs created locally from the dashboard or CLI; the bundled pilot run is tracked.
 runs/*
 !runs/pilot/

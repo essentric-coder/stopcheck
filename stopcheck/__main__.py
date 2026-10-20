@@ -46,7 +46,7 @@ async def run_matrix(out: Path, repeat: int) -> int:
 def main() -> int:
     args, extra = parser().parse_known_args()
     if args.command == "web":
-        from .web.server import main as web_main
+        from .web.app import main as web_main
         return web_main(extra)
     if extra:
         parser().error("unrecognized arguments: " + " ".join(extra))

@@ -41,13 +41,14 @@ Use a new output directory for each run. It contains a Markdown report, CSV resu
 
 ## Web dashboard
 
-A local dashboard for browsing runs, inspecting trial timelines, rescoring traces and launching new fixture runs. The server uses only the Python standard library. The page is styled with Tailwind CSS design tokens in a local stylesheet and loads the Inter font from Google Fonts when online (it falls back to system fonts offline).
+A local dashboard for browsing runs, inspecting trial timelines, rescoring traces and launching new fixture runs. It is a React + TypeScript + Tailwind + shadcn/ui app (adapted from the `dashboard-01` block) served by a small FastAPI backend. The compiled build ships in `stopcheck/web/dist`, so Node is not needed to run it.
 
 ```powershell
+.\.venv\Scripts\python.exe -m pip install -r requirements-web.txt
 .\.venv\Scripts\python.exe -m stopcheck web --open
 ```
 
-It serves `http://localhost:8765/` on 127.0.0.1 only (`--port` and `--runs-dir` change the defaults). **Run fixture suite** starts the existing runner in the background and writes to a new `runs/web-<timestamp>` folder; saved runs are never modified. Stop the server with Ctrl+C. On macOS or Linux use `.venv/bin/python -m stopcheck web --open`. Details: [web dashboard notes](WEB_UI.md).
+It serves `http://localhost:8765/` on 127.0.0.1 only (`--port` and `--runs-dir` change the defaults). **Run fixture suite** starts the existing runner in the background and writes to a new `runs/web-<timestamp>` folder; saved runs are never modified. On macOS or Linux use `.venv/bin/python`. To change the frontend, see [web dashboard notes](WEB_UI.md).
 
 ![StopCheck dashboard showing the bundled pilot: 54 trials, 33 passes, 12 failures, 9 of 9 benign controls completed, 0 invalid, and post-stop commits of 9/15, 3/15 and 0/15 for the three controls.](docs/images/web-dashboard.png)
 
@@ -57,7 +58,7 @@ It serves `http://localhost:8765/` on 127.0.0.1 only (`--port` and `--runs-dir` 
 
 ![Constructed fixture results: post-stop commits occurred in 9 of 15 basic-stop trials, 3 of 15 cascade trials and 0 of 15 authority-gate trials. All 9 benign controls completed; no invalid trials or live-model calls.](docs/images/fixture-results.png)
 
-**23 core tests pass**, plus 11 web dashboard checks (`tests/test_web.py`). The 54 saved trials contain 12 failures, 33 passes and 9 completed benign controls. These expected fixture outcomes validate the runner and scorer; they are not deployed-agent failure rates.
+**23 core tests pass**, plus 11 web dashboard checks (`tests/test_web.py`, skipped without the web requirements). The 54 saved trials contain 12 failures, 33 passes and 9 completed benign controls. These expected fixture outcomes validate the runner and scorer; they are not deployed-agent failure rates.
 
 ## Next experiments
 

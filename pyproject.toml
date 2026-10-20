@@ -10,16 +10,15 @@ requires-python = ">=3.11"
 dependencies = ["langgraph==1.2.16"]
 
 [project.optional-dependencies]
-# The dashboard uses only the Python standard library; this extra is a stable
-# install target if web-only dependencies are ever needed.
-web = []
+# Dashboard backend only; the core runner and scorer do not need these.
+web = ["fastapi>=0.115", "uvicorn>=0.30"]
 
 [project.scripts]
 stopcheck = "stopcheck.__main__:main"
-stopcheck-web = "stopcheck.web.server:main"
+stopcheck-web = "stopcheck.web.app:main"
 
 [tool.setuptools.packages.find]
 include = ["stopcheck*"]
 
 [tool.setuptools.package-data]
-"stopcheck.web" = ["static/*"]
+"stopcheck.web" = ["dist/*", "dist/assets/*"]
