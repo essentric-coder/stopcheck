@@ -1,0 +1,164 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>StopCheck</title>
+<link rel="icon" href="/static/favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap">
+<link rel="stylesheet" href="/static/app.css">
+<script src="/static/app.js" defer></script>
+</head>
+<body>
+<a class="skip" href="#trials">Skip to trials</a>
+
+<div class="shell">
+  <aside class="sidebar" aria-label="Runs and controls">
+    <div class="sb-brand">
+      <svg class="logo" viewBox="0 0 32 32" aria-hidden="true"><rect width="32" height="32" rx="7" fill="#0f2747"/><rect x="10" y="10" width="12" height="12" rx="2" fill="#14b8a6"/></svg>
+      <div>
+        <div class="sb-name">StopCheck</div>
+        <div class="sb-tag">Stop evaluation pilot</div>
+      </div>
+    </div>
+
+    <nav class="sb-section" aria-labelledby="runs-heading">
+      <h2 class="sb-heading" id="runs-heading">Runs</h2>
+      <ul class="run-list" id="run-list"></ul>
+    </nav>
+
+    <section class="sb-section sb-launch" aria-labelledby="launch-heading">
+      <h2 class="sb-heading" id="launch-heading">New fixture run</h2>
+      <form id="launch-form" class="launch">
+        <div class="launch-row">
+          <div class="field">
+            <label for="repeat">Repeats</label>
+            <select id="repeat" name="repeat"></select>
+          </div>
+          <div class="field">
+            <label for="label">Label</label>
+            <input id="label" name="label" type="text" maxlength="24" pattern="[a-z0-9\-]*" placeholder="optional" autocomplete="off" title="Lowercase letters, digits and hyphens">
+          </div>
+        </div>
+        <button type="submit" class="btn btn-primary btn-block" id="launch-btn">
+          <svg viewBox="0 0 20 20" aria-hidden="true" class="icon"><path d="M6.3 2.84A1.5 1.5 0 004 4.11v11.78a1.5 1.5 0 002.3 1.27l9.34-5.89a1.5 1.5 0 000-2.54L6.3 2.84z" fill="currentColor"/></svg>
+          Run fixture suite
+        </button>
+        <p class="hint">Runs the existing CLI runner in the background into a new <code>runs/</code> folder.</p>
+      </form>
+      <div id="job" class="job" role="status" aria-live="polite" hidden></div>
+    </section>
+
+    <div class="sb-foot">Serving locally · saved runs are read-only</div>
+  </aside>
+
+  <main class="content" id="main">
+    <header class="page-head">
+      <div class="page-title">
+        <nav class="crumbs" aria-label="Breadcrumb"><span>Runs</span><svg viewBox="0 0 20 20" aria-hidden="true"><path d="M7.5 5l5 5-5 5" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg><span id="crumb-run">…</span></nav>
+        <h1 id="run-title">Loading…</h1>
+        <div class="meta" id="run-meta" aria-live="polite"></div>
+      </div>
+      <div class="page-actions">
+        <details class="menu" id="download-menu">
+          <summary class="btn btn-white">
+            <svg viewBox="0 0 20 20" aria-hidden="true" class="icon"><path d="M10.75 2.75a.75.75 0 00-1.5 0v8.614L6.295 8.235a.75.75 0 10-1.09 1.03l4.25 4.5a.75.75 0 001.09 0l4.25-4.5a.75.75 0 00-1.09-1.03l-2.955 3.129V2.75z" fill="currentColor"/><path d="M3.5 12.75a.75.75 0 00-1.5 0v2.5A2.75 2.75 0 004.75 18h10.5A2.75 2.75 0 0018 15.25v-2.5a.75.75 0 00-1.5 0v2.5c0 .69-.56 1.25-1.25 1.25H4.75c-.69 0-1.25-.56-1.25-1.25v-2.5z" fill="currentColor"/></svg>
+            Download
+            <svg viewBox="0 0 20 20" aria-hidden="true" class="icon icon-muted"><path d="M5.23 7.21a.75.75 0 011.06.02L10 11.17l3.71-3.94a.75.75 0 111.08 1.04l-4.25 4.5a.75.75 0 01-1.08 0l-4.25-4.5a.75.75 0 01.02-1.06z" fill="currentColor"/></svg>
+          </summary>
+          <div class="menu-panel" id="downloads" role="group" aria-label="Download run files"></div>
+        </details>
+      </div>
+    </header>
+
+    <div id="load-error" class="alert" role="alert" hidden></div>
+
+    <section class="stats" id="cards" aria-label="Summary"></section>
+
+    <div class="grid-2">
+      <section class="panel" aria-labelledby="chart-heading">
+        <div class="panel-head">
+          <div>
+            <h2 id="chart-heading">Post-stop commits by control</h2>
+            <p>Stopped trials in which the sink accepted a protected action after the stop fence. Benign controls are excluded from denominators.</p>
+          </div>
+        </div>
+        <div class="chart" id="chart"></div>
+      </section>
+
+      <section class="panel evidence" id="evidence" aria-labelledby="evidence-heading" tabindex="-1">
+        <div class="panel-head">
+          <div>
+            <h2 id="evidence-heading"><span class="badge badge-teal">Scripted fixture</span> What this evidence is</h2>
+          </div>
+        </div>
+        <dl class="facts">
+          <div><dt>Constructed fixtures</dt><dd>They validate the runner and scorer. They are not deployed-agent failure rates.</dd></div>
+          <div><dt>Two stop channels</dt><dd>App cancellation cancels the graph task. An agent stop message is text delivered to the agent's inbox.</dd></div>
+          <div><dt>Scripted replies</dt><dd>The agent's reply to a stop message is scripted to comply or continue. <span id="live-calls">No live model is called.</span></dd></div>
+          <div><dt>Reference control</dt><dd>The authority gate re-checks persisted authority inside the sink's commit transaction.</dd></div>
+        </dl>
+      </section>
+    </div>
+
+    <section class="panel panel-flush" id="trials" aria-labelledby="trials-heading">
+      <div class="panel-head panel-pad">
+        <div>
+          <h2 id="trials-heading">Trials</h2>
+          <p id="result-count" aria-live="polite"></p>
+        </div>
+        <span class="source" id="summary-source"></span>
+      </div>
+      <div class="toolbar" role="search">
+        <div class="search">
+          <svg viewBox="0 0 20 20" aria-hidden="true"><path fill-rule="evenodd" d="M9 3.5a5.5 5.5 0 100 11 5.5 5.5 0 000-11zM2 9a7 7 0 1112.45 4.39l3.08 3.08a.75.75 0 11-1.06 1.06l-3.08-3.08A7 7 0 012 9z" clip-rule="evenodd" fill="currentColor"/></svg>
+          <label for="f-search" class="visually-hidden">Search trials</label>
+          <input id="f-search" type="search" placeholder="Search trials" autocomplete="off">
+        </div>
+        <div class="filter"><label for="f-channel">Channel</label><select id="f-channel" data-key="channel"></select></div>
+        <div class="filter"><label for="f-policy">Policy</label><select id="f-policy" data-key="policy"></select></div>
+        <div class="filter"><label for="f-control">Control</label><select id="f-control" data-key="control"></select></div>
+        <div class="filter"><label for="f-scenario">Scenario</label><select id="f-scenario" data-key="scenario"></select></div>
+        <div class="filter"><label for="f-verdict">Verdict</label><select id="f-verdict" data-key="safety"></select></div>
+        <button type="button" class="btn-link" id="f-reset">Clear</button>
+      </div>
+      <div class="table-wrap">
+        <table id="trial-table">
+          <caption class="visually-hidden">Trials in the selected run. Select a trial to open its timeline.</caption>
+          <thead>
+            <tr>
+              <th scope="col">Verdict</th>
+              <th scope="col">Trial</th>
+              <th scope="col">Stop channel</th>
+              <th scope="col">Scripted policy</th>
+              <th scope="col">Control</th>
+              <th scope="col" class="num" title="Protected actions accepted after the stop fence">Post-stop</th>
+              <th scope="col" class="num" title="Actions rejected by the authority gate">Gate blocks</th>
+            </tr>
+          </thead>
+          <tbody></tbody>
+        </table>
+      </div>
+    </section>
+
+    <footer class="footer">Values are read from saved run files, trial logs and SQLite ledgers on this machine.</footer>
+  </main>
+</div>
+
+<div class="backdrop" id="backdrop" hidden></div>
+<aside class="drawer" id="drawer" role="dialog" aria-modal="true" aria-labelledby="drawer-title" hidden tabindex="-1">
+  <div class="drawer-head">
+    <div class="drawer-title-wrap">
+      <h2 id="drawer-title">Trial</h2>
+      <p class="drawer-id" id="drawer-id"></p>
+    </div>
+    <button type="button" class="icon-btn" id="drawer-close" aria-label="Close trial detail">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 18L18 6M6 6l12 12" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    </button>
+  </div>
+  <div class="drawer-body" id="detail-body"></div>
+</aside>
+</body>
+</html>

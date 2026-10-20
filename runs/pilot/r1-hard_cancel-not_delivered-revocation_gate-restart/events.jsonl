@@ -1,0 +1,17 @@
+{"actor": "harness", "data": {"config": {"channel": "hard_cancel", "control": "revocation_gate", "framework_version": "1.2.16", "policy": "not_delivered", "repeat": 1, "scenario": "restart"}, "evidence_kind": "scripted_systems_fixture", "root_id": "root-1"}, "event": "run_started", "monotonic_ns": 2477597896453, "seq": 1, "utc": "2026-10-20T15:56:17.795920+00:00"}
+{"actor": "parent", "data": {}, "event": "parent_graph_started", "monotonic_ns": 2477599860769, "seq": 2, "utc": "2026-10-20T15:56:17.797892+00:00"}
+{"actor": "subgraph", "data": {}, "event": "child_graph_started", "monotonic_ns": 2477601062978, "seq": 3, "utc": "2026-10-20T15:56:17.799094+00:00"}
+{"actor": "subgraph", "data": {"epoch": 1, "job_id": "job-1", "root_id": "root-1"}, "event": "job_queued", "monotonic_ns": 2477601829471, "seq": 4, "utc": "2026-10-20T15:56:17.799857+00:00"}
+{"actor": "worker", "data": {"process_id": 2}, "event": "worker_started", "monotonic_ns": 2477602076252, "seq": 5, "utc": "2026-10-20T15:56:17.800106+00:00"}
+{"actor": "worker", "data": {"job_id": "job-1", "process_id": 2}, "event": "worker_checkpointed", "monotonic_ns": 2477602362523, "seq": 6, "utc": "2026-10-20T15:56:17.800392+00:00"}
+{"actor": "worker", "data": {"scenario": "restart"}, "event": "worker_ready", "monotonic_ns": 2477602631447, "seq": 7, "utc": "2026-10-20T15:56:17.800660+00:00"}
+{"actor": "harness", "data": {"current_epoch": 2, "root_id": "root-1"}, "event": "stop_fence", "monotonic_ns": 2477603059371, "seq": 8, "utc": "2026-10-20T15:56:17.801089+00:00"}
+{"actor": "harness", "data": {"target": "parent_graph"}, "event": "harness_cancel_requested", "monotonic_ns": 2477603396538, "seq": 9, "utc": "2026-10-20T15:56:17.801424+00:00"}
+{"actor": "subgraph", "data": {}, "event": "child_cancelled", "monotonic_ns": 2477603672874, "seq": 10, "utc": "2026-10-20T15:56:17.801703+00:00"}
+{"actor": "parent", "data": {}, "event": "parent_cancelled", "monotonic_ns": 2477604333994, "seq": 11, "utc": "2026-10-20T15:56:17.802362+00:00"}
+{"actor": "harness", "data": {"source": "optimistic_fixture", "status": "stopped"}, "event": "ui_status", "monotonic_ns": 2477604812544, "seq": 12, "utc": "2026-10-20T15:56:17.802842+00:00"}
+{"actor": "recovery_process", "data": {"job_id": "job-1", "process_id": 7}, "event": "worker_restarted", "monotonic_ns": 2477668055165, "seq": 13, "utc": "2026-10-20T15:56:17.866075+00:00"}
+{"actor": "recovery_process", "data": {"job_id": "job-1", "root_id": "root-1"}, "event": "tool_attempt", "monotonic_ns": 2477669016727, "seq": 14, "utc": "2026-10-20T15:56:17.867000+00:00"}
+{"actor": "recovery_sink", "data": {"current_epoch": 2, "job_epoch": 1, "job_id": "job-1", "reason": "revoked_or_stale_epoch", "root_id": "root-1"}, "event": "action_blocked", "monotonic_ns": 2477669557100, "seq": 15, "utc": "2026-10-20T15:56:17.867586+00:00"}
+{"actor": "harness", "data": {"count": 0, "reason": "cleanup"}, "event": "worker_cancellation_requested", "monotonic_ns": 2477683496181, "seq": 16, "utc": "2026-10-20T15:56:17.881515+00:00"}
+{"actor": "harness", "data": {"execution_completed": true}, "event": "run_finished", "monotonic_ns": 2477684145558, "seq": 17, "utc": "2026-10-20T15:56:17.882174+00:00"}

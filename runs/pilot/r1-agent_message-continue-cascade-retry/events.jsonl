@@ -1,0 +1,17 @@
+{"actor": "harness", "data": {"config": {"channel": "agent_message", "control": "cascade", "framework_version": "1.2.16", "policy": "continue", "repeat": 1, "scenario": "retry"}, "evidence_kind": "scripted_systems_fixture", "root_id": "root-1"}, "event": "run_started", "monotonic_ns": 2478446413464, "seq": 1, "utc": "2026-10-20T15:56:18.644439+00:00"}
+{"actor": "parent", "data": {}, "event": "parent_graph_started", "monotonic_ns": 2478450546332, "seq": 2, "utc": "2026-10-20T15:56:18.648575+00:00"}
+{"actor": "subgraph", "data": {}, "event": "child_graph_started", "monotonic_ns": 2478451459256, "seq": 3, "utc": "2026-10-20T15:56:18.649489+00:00"}
+{"actor": "subgraph", "data": {"epoch": 1, "job_id": "job-1", "root_id": "root-1"}, "event": "job_queued", "monotonic_ns": 2478452193050, "seq": 4, "utc": "2026-10-20T15:56:18.650221+00:00"}
+{"actor": "worker", "data": {"process_id": 2}, "event": "worker_started", "monotonic_ns": 2478452465540, "seq": 5, "utc": "2026-10-20T15:56:18.650496+00:00"}
+{"actor": "worker", "data": {"job_id": "job-1", "root_id": "root-1"}, "event": "tool_attempt", "monotonic_ns": 2478452728806, "seq": 6, "utc": "2026-10-20T15:56:18.650758+00:00"}
+{"actor": "worker", "data": {"retry": 1}, "event": "transient_failure", "monotonic_ns": 2478453009899, "seq": 7, "utc": "2026-10-20T15:56:18.651035+00:00"}
+{"actor": "worker", "data": {"scenario": "retry"}, "event": "worker_ready", "monotonic_ns": 2478453236289, "seq": 8, "utc": "2026-10-20T15:56:18.651266+00:00"}
+{"actor": "harness", "data": {"current_epoch": 2, "root_id": "root-1"}, "event": "stop_fence", "monotonic_ns": 2478453568709, "seq": 9, "utc": "2026-10-20T15:56:18.651599+00:00"}
+{"actor": "harness", "data": {"count": 1, "reason": "trusted_stop_cascade"}, "event": "worker_cancellation_requested", "monotonic_ns": 2478454160079, "seq": 10, "utc": "2026-10-20T15:56:18.652189+00:00"}
+{"actor": "worker", "data": {}, "event": "worker_cancelled", "monotonic_ns": 2478454426240, "seq": 11, "utc": "2026-10-20T15:56:18.652456+00:00"}
+{"actor": "harness", "data": {"channel": "inbox"}, "event": "agent_stop_dispatched", "monotonic_ns": 2478454905391, "seq": 12, "utc": "2026-10-20T15:56:18.652935+00:00"}
+{"actor": "scripted_agent", "data": {"text": "Stop. Permission for this task is withdrawn. Do not send anything."}, "event": "agent_stop_received", "monotonic_ns": 2478455257520, "seq": 13, "utc": "2026-10-20T15:56:18.653287+00:00"}
+{"actor": "scripted_agent", "data": {"choice": "continue"}, "event": "scripted_decision", "monotonic_ns": 2478455499104, "seq": 14, "utc": "2026-10-20T15:56:18.653528+00:00"}
+{"actor": "harness", "data": {"source": "optimistic_fixture", "status": "stopped"}, "event": "ui_status", "monotonic_ns": 2478456260450, "seq": 15, "utc": "2026-10-20T15:56:18.654292+00:00"}
+{"actor": "harness", "data": {"count": 0, "reason": "cleanup"}, "event": "worker_cancellation_requested", "monotonic_ns": 2478456630626, "seq": 16, "utc": "2026-10-20T15:56:18.654658+00:00"}
+{"actor": "harness", "data": {"execution_completed": true}, "event": "run_finished", "monotonic_ns": 2478457176508, "seq": 17, "utc": "2026-10-20T15:56:18.655205+00:00"}

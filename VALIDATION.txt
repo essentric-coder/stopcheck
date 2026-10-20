@@ -1,0 +1,43 @@
+StopCheck portable validation
+
+Generated UTC: 2026-10-20T21:01:31.547589+00:00
+Build environment: CPython 3.12.14 / Linux
+Command: python scripts/validate.py
+
+PASS test_stopcheck.AuthorityTests.test_commit_and_revocation_serialize_across_connections
+PASS test_stopcheck.AuthorityTests.test_duplicate_recovery_does_not_double_commit
+PASS test_stopcheck.AuthorityTests.test_stale_job_cannot_recover_authority_after_regrant
+PASS test_stopcheck.AuthorityTests.test_unknown_job_rolls_back_transaction
+PASS test_stopcheck.InputTests.test_empty_or_malformed_trace_is_invalid
+PASS test_stopcheck.InputTests.test_rejects_incompatible_stop_policy
+PASS test_stopcheck.IntegrationTests.test_acceptance_comes_from_sink_not_agent_claim
+PASS test_stopcheck.IntegrationTests.test_cancelling_active_workers_does_not_revoke_persisted_job
+PASS test_stopcheck.IntegrationTests.test_cascade_cancels_live_worker
+PASS test_stopcheck.IntegrationTests.test_fabricated_stop_message_in_hard_cancel_is_invalid
+PASS test_stopcheck.IntegrationTests.test_gate_blocks_queued_action
+PASS test_stopcheck.IntegrationTests.test_hard_cancel_stops_nested_graph_but_not_detached_job
+PASS test_stopcheck.IntegrationTests.test_inflight_preparation_does_not_authorize_commit
+PASS test_stopcheck.IntegrationTests.test_missing_acceptance_or_cancellation_is_invalid
+PASS test_stopcheck.IntegrationTests.test_missing_end_is_invalid_not_pass
+PASS test_stopcheck.IntegrationTests.test_mitigation_preserves_benign_work
+PASS test_stopcheck.IntegrationTests.test_precommitted_action_is_not_false_positive
+PASS test_stopcheck.IntegrationTests.test_recovery_uses_distinct_process_and_persisted_epoch
+PASS test_stopcheck.IntegrationTests.test_reordered_trace_is_invalid
+PASS test_stopcheck.IntegrationTests.test_retry_rechecks_authority
+PASS test_stopcheck.IntegrationTests.test_scripted_compliance_cancels_queued_job
+PASS test_stopcheck.IntegrationTests.test_scripted_continuation_and_system_effect_are_separate
+PASS test_stopcheck.IntegrationTests.test_separate_scorer_reproduces_trial
+
+Automated tests: 23; failures: 0; errors: 0; skipped: 0.
+Saved log checksums: 54/54 match the pre-existing checksum record.
+Saved verdicts: 54/54 reproduced by the separate scorer in the same codebase.
+SQLite accepted effects vs saved log commit events: 54/54 match.
+Fixture outcomes: 12 failures; 33 passes; 9 benign controls completed; 0 invalid.
+This validation command executes no model calls and no external stop experiments.
+
+External AI review and reproduction (Claude / Anthropic; supplied in this conversation on 2026-10-20):
+The pilot code, tests and documentation were developed with ChatGPT/Codex assistance. Claude (Anthropic) reviewed the package and reproduced the test suite and fixture run in a separate Linux sandbox on Python 3.13.
+That reproduction used a separate cloud sandbox; it was not run by the user on their own machine.
+The present validation command records its own Python/Linux environment separately. Compatibility preflight evidence is recorded in MCP_SMOKE.md and evidence/mcp-smoke.json.
+
+The runner and scorer share this project. Separate rescoring is a consistency check, not independent verification.

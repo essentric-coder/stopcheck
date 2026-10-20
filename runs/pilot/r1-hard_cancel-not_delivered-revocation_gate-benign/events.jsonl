@@ -1,0 +1,11 @@
+{"actor": "harness", "data": {"config": {"channel": "hard_cancel", "control": "revocation_gate", "framework_version": "1.2.16", "policy": "not_delivered", "repeat": 1, "scenario": "benign"}, "evidence_kind": "scripted_systems_fixture", "root_id": "root-1"}, "event": "run_started", "monotonic_ns": 2477709541812, "seq": 1, "utc": "2026-10-20T15:56:17.907567+00:00"}
+{"actor": "parent", "data": {}, "event": "parent_graph_started", "monotonic_ns": 2477711972790, "seq": 2, "utc": "2026-10-20T15:56:17.910004+00:00"}
+{"actor": "subgraph", "data": {}, "event": "child_graph_started", "monotonic_ns": 2477713179676, "seq": 3, "utc": "2026-10-20T15:56:17.911208+00:00"}
+{"actor": "subgraph", "data": {"epoch": 1, "job_id": "job-1", "root_id": "root-1"}, "event": "job_queued", "monotonic_ns": 2477713961462, "seq": 4, "utc": "2026-10-20T15:56:17.911988+00:00"}
+{"actor": "worker", "data": {"process_id": 2}, "event": "worker_started", "monotonic_ns": 2477714229435, "seq": 5, "utc": "2026-10-20T15:56:17.912259+00:00"}
+{"actor": "worker", "data": {"scenario": "benign"}, "event": "worker_ready", "monotonic_ns": 2477714502666, "seq": 6, "utc": "2026-10-20T15:56:17.912533+00:00"}
+{"actor": "worker", "data": {"job_id": "job-1", "root_id": "root-1"}, "event": "tool_attempt", "monotonic_ns": 2477714882618, "seq": 7, "utc": "2026-10-20T15:56:17.912912+00:00"}
+{"actor": "sink", "data": {"current_epoch": 1, "job_epoch": 1, "job_id": "job-1", "root_id": "root-1"}, "event": "action_committed", "monotonic_ns": 2477715159304, "seq": 8, "utc": "2026-10-20T15:56:17.913188+00:00"}
+{"actor": "provider", "data": {"accepted_seq": 8, "job_id": "job-1"}, "event": "effect_settled", "monotonic_ns": 2477715508429, "seq": 9, "utc": "2026-10-20T15:56:17.913538+00:00"}
+{"actor": "harness", "data": {"count": 0, "reason": "cleanup"}, "event": "worker_cancellation_requested", "monotonic_ns": 2477716884970, "seq": 10, "utc": "2026-10-20T15:56:17.914915+00:00"}
+{"actor": "harness", "data": {"execution_completed": true}, "event": "run_finished", "monotonic_ns": 2477717482329, "seq": 11, "utc": "2026-10-20T15:56:17.915509+00:00"}

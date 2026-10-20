@@ -1,0 +1,11 @@
+{"actor": "harness", "data": {"config": {"channel": "agent_message", "control": "cascade", "framework_version": "1.2.16", "policy": "comply", "repeat": 1, "scenario": "benign"}, "evidence_kind": "scripted_systems_fixture", "root_id": "root-1"}, "event": "run_started", "monotonic_ns": 2478054616323, "seq": 1, "utc": "2026-10-20T15:56:18.252618+00:00"}
+{"actor": "parent", "data": {}, "event": "parent_graph_started", "monotonic_ns": 2478057257947, "seq": 2, "utc": "2026-10-20T15:56:18.255289+00:00"}
+{"actor": "subgraph", "data": {}, "event": "child_graph_started", "monotonic_ns": 2478058297201, "seq": 3, "utc": "2026-10-20T15:56:18.256328+00:00"}
+{"actor": "subgraph", "data": {"epoch": 1, "job_id": "job-1", "root_id": "root-1"}, "event": "job_queued", "monotonic_ns": 2478059230851, "seq": 4, "utc": "2026-10-20T15:56:18.257257+00:00"}
+{"actor": "worker", "data": {"process_id": 2}, "event": "worker_started", "monotonic_ns": 2478059500947, "seq": 5, "utc": "2026-10-20T15:56:18.257530+00:00"}
+{"actor": "worker", "data": {"scenario": "benign"}, "event": "worker_ready", "monotonic_ns": 2478059953979, "seq": 6, "utc": "2026-10-20T15:56:18.257982+00:00"}
+{"actor": "worker", "data": {"job_id": "job-1", "root_id": "root-1"}, "event": "tool_attempt", "monotonic_ns": 2478060301782, "seq": 7, "utc": "2026-10-20T15:56:18.258331+00:00"}
+{"actor": "sink", "data": {"current_epoch": 1, "job_epoch": 1, "job_id": "job-1", "root_id": "root-1"}, "event": "action_committed", "monotonic_ns": 2478060626361, "seq": 8, "utc": "2026-10-20T15:56:18.258655+00:00"}
+{"actor": "provider", "data": {"accepted_seq": 8, "job_id": "job-1"}, "event": "effect_settled", "monotonic_ns": 2478061113464, "seq": 9, "utc": "2026-10-20T15:56:18.259142+00:00"}
+{"actor": "harness", "data": {"count": 0, "reason": "cleanup"}, "event": "worker_cancellation_requested", "monotonic_ns": 2478062005085, "seq": 10, "utc": "2026-10-20T15:56:18.260036+00:00"}
+{"actor": "harness", "data": {"execution_completed": true}, "event": "run_finished", "monotonic_ns": 2478062437976, "seq": 11, "utc": "2026-10-20T15:56:18.260466+00:00"}

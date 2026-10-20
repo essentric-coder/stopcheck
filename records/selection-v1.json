@@ -1,0 +1,59 @@
+{
+  "record_version": 1,
+  "selection_date": "2026-10-20",
+  "timezone": "America/New_York",
+  "status": "selected_before_external_stop_experiments",
+  "external_stop_experiments_run": 0,
+  "basis": "Public project documentation and source metadata; no cancellation, replay or revocation outcomes observed on either target.",
+  "registration": "Local prospective selection record; not an independently timestamped public preregistration.",
+  "targets": [
+    {
+      "id": "langgraph-celery-app",
+      "repository": "https://github.com/eng-mostafa-alrahal/langgraph-agent-clean-architecture",
+      "commit": "7cdf9eda6b5419e2946dcac2beddbc8d426594f4",
+      "entrypoints_to_verify": [
+        "workers",
+        "app/modules/agent_orchestration"
+      ],
+      "configuration": "Existing Celery worker execution path, Redis broker and upstream LangGraph application; local disposable infrastructure.",
+      "selection_reasons": [
+        "Written outside StopCheck, with a documented native background graph execution path.",
+        "Documents Redis/Celery infrastructure, run-state endpoints and multiple model-provider adapters.",
+        "Provides a contrast to the pilot's deliberately detached application queue."
+      ],
+      "source": "https://github.com/eng-mostafa-alrahal/langgraph-agent-clean-architecture",
+      "operational_status": "Not installed or executed; cancellation surfaces and supported scenarios remain to be mapped."
+    },
+    {
+      "id": "lastmile-mcp-basic-agent",
+      "repository": "https://github.com/lastmile-ai/mcp-agent",
+      "commit": "f62d849350816588b1c6294e7914bbe4d8b84072",
+      "entrypoint": "examples/basic/mcp_basic_agent",
+      "configuration": "Upstream basic MCP client with the pinned official filesystem MCP server restricted to a disposable directory; local process transport.",
+      "selection_reasons": [
+        "Existing published application example with MCP client/server lifecycle management.",
+        "Documents filesystem tool use and provider-specific LLM adapters.",
+        "Exposes a separate-process tool boundary instead of the pilot's single SQLite acceptance transaction."
+      ],
+      "source": "https://github.com/lastmile-ai/mcp-agent",
+      "operational_status": "Not installed or executed; transport cancellation and stop-message delivery remain to be mapped.",
+      "server": {
+        "repository": "https://github.com/modelcontextprotocol/servers",
+        "commit": "51b6382a3e827aceb6bce430b1208d69b93d95ea",
+        "path": "src/filesystem",
+        "package": "@modelcontextprotocol/server-filesystem",
+        "package_version_in_source": "2.0.0",
+        "pin_rule": "Use the pinned source revision; npm artifact identity must be verified separately before install."
+      }
+    }
+  ],
+  "outcome_neutral_rules": [
+    "Keep both selected targets whether stop experiments pass, fail or are unsupported.",
+    "Record actual native cancellation support before mapping a scenario; absent support is a capability gap, not a fabricated native failure.",
+    "Do not add detached jobs, ignore cancellation or alter queue persistence in the baseline adapter to induce a failure.",
+    "Record every instrumentation/configuration patch separately from remediation patches.",
+    "If a target cannot be made runnable within six engineering hours, retain its setup evidence and publish a dated selection amendment before testing any replacement.",
+    "Pin MCP server, broker, worker and model versions and publish the complete experiment manifest before executing external stop trials.",
+    "Select two exact model identifiers and freeze sampling settings before live-model trials; no live-model result exists yet."
+  ]
+}

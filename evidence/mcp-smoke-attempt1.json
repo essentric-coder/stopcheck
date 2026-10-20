@@ -1,0 +1,33 @@
+{
+  "kind": "compatibility_preflight_only",
+  "started_utc": "2026-10-20T20:55:00.298976+00:00",
+  "python": "3.12.14",
+  "platform": "Linux",
+  "steps": [],
+  "model_calls": 0,
+  "stop_experiments": 0,
+  "configuration_changes": [
+    "filesystem only; fetch disabled",
+    "temporary allowed directory",
+    "explicit write/read task through native Agent client",
+    "telemetry disabled"
+  ],
+  "scope": "Basic pinned-client/server interoperability; no LLM selection or cancellation/recovery tested.",
+  "node": "v24.19.0",
+  "packages": {
+    "mcp-agent": "0.2.6",
+    "mcp": "1.23.1",
+    "pydantic": "2.11.5"
+  },
+  "agent_commit": "f62d849350816588b1c6294e7914bbe4d8b84072",
+  "server_commit": "51b6382a3e827aceb6bce430b1208d69b93d95ea",
+  "server_entry_sha256": "ed5efae0e3597236ba1f170ce8d903280c1f58b36dd7a7ad53891ed634c7e996",
+  "source_lock_sha256": {
+    "agent_uv_lock": "67312d5846032bbfed82472a40694bd0b9a56a7729e9cd51c1d62306b1b6032a",
+    "server_package_lock": "ccc2256afe262ba61e91656d78dc972807b6f4c8142a28368d11e1aabdbb95f8"
+  },
+  "status": "failed",
+  "error_type": "ImportError",
+  "error": "Using SOCKS proxy, but the 'socksio' package is not installed. Make sure to install httpx using `pip install httpx[socks]`.",
+  "elapsed_seconds": 3.119
+}

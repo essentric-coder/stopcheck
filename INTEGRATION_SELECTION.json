@@ -1,0 +1,144 @@
+{
+  "record_version": 2,
+  "selection_date": "2026-10-20",
+  "timezone": "America/New_York",
+  "status": "selected_before_external_stop_experiments",
+  "external_stop_experiments_run": 0,
+  "basis": "Public project documentation and source metadata; no cancellation, replay or revocation outcomes observed on either target.",
+  "registration": "Local prospective selection record; not an independently timestamped public preregistration.",
+  "targets": [
+    {
+      "id": "langgraph-celery-app",
+      "repository": "https://github.com/eng-mostafa-alrahal/langgraph-agent-clean-architecture",
+      "commit": "7cdf9eda6b5419e2946dcac2beddbc8d426594f4",
+      "entrypoints_to_verify": [
+        "workers",
+        "app/modules/agent_orchestration"
+      ],
+      "configuration": "Existing Celery worker execution path, Redis broker and upstream LangGraph application; local disposable infrastructure.",
+      "selection_reasons": [
+        "Pre-existing template implementing a common LangGraph/Celery/Redis pattern, not an adopted application claim.",
+        "task_acks_late=True is explicit; Celery 5.6.3 is pinned in the upstream uv.lock.",
+        "Investigate revoke persistence and restart/recovery semantics under declared worker and broker conditions, rather than adding detached jobs."
+      ],
+      "source": "https://github.com/eng-mostafa-alrahal/langgraph-agent-clean-architecture",
+      "operational_status": "Pinned source and version-specific documentation reviewed; no Celery/Redis application stop experiment executed.",
+      "target_type": "clean-architecture template following the LangGraph + Celery pattern; usage/adoption not established",
+      "native_application_stop": {
+        "status": "unsupported",
+        "basis": "Pinned-source scan of app/ and workers/ found no cancellation/revoke handler. The only terminate match was an incidental startup warning about uvicorn reload, not a stop implementation."
+      },
+      "baseline": {
+        "level": "Celery worker control, not application stop",
+        "operation": "control.revoke(task_id, terminate=False)",
+        "scope": "Skip revoked tasks if the worker knows the task ID; does not stop a task already executing.",
+        "durable_comparator": "The same worker configuration with a declared persistent --statedb file.",
+        "default_native_worker_config": {
+          "task_acks_late": true,
+          "worker_prefetch_multiplier": 1,
+          "task_reject_on_worker_lost": "Celery default False; not overridden by workers/celery_app.py",
+          "worker_state_db": "Celery default None; not configured in documented worker command"
+        },
+        "upstream_lock": {
+          "celery": "5.6.3",
+          "redis": "6.4.0",
+          "langgraph": "1.1.6",
+          "mcp": "1.27.0"
+        },
+        "child_loss_qualification": "Do not infer redelivery from acks_late alone; task_reject_on_worker_lost and task_process/whole_worker loss must be distinguished.",
+        "restart_qualification": "Distinguish restart of all workers from a worker that can synchronize revokes from surviving peers."
+      },
+      "documentation_review": {
+        "version": "5.6.3",
+        "sources": [
+          "https://github.com/celery/celery/blob/v5.6.3/docs/userguide/workers.rst",
+          "https://github.com/celery/celery/blob/v5.6.3/docs/userguide/configuration.rst",
+          "https://github.com/celery/celery/blob/v5.6.3/celery/worker/request.py"
+        ],
+        "qualifications": [
+          "Plain revoke does not terminate an already-running task.",
+          "Revoked IDs are normally in memory; restarting all workers can lose them absent persistent state, while surviving peers can synchronize revokes.",
+          "Killing a task pool child is normally acknowledged even with late acks when reject_on_worker_lost is false; do not conflate it with whole-worker or broker connection loss.",
+          "Whole-worker loss/redelivery depends on acknowledgement and broker visibility/recovery conditions; Redis default visibility timeout is one hour."
+        ]
+      }
+    },
+    {
+      "id": "lastmile-mcp-basic-agent",
+      "repository": "https://github.com/lastmile-ai/mcp-agent",
+      "commit": "f62d849350816588b1c6294e7914bbe4d8b84072",
+      "entrypoint": "examples/basic/mcp_basic_agent",
+      "configuration": "Upstream basic MCP client with the pinned official filesystem MCP server restricted to a disposable directory; local process transport.",
+      "selection_reasons": [
+        "Existing published application example with MCP client/server lifecycle management.",
+        "Documents filesystem tool use and provider-specific LLM adapters.",
+        "Exposes a separate-process tool boundary instead of the pilot's single SQLite acceptance transaction."
+      ],
+      "source": "https://github.com/lastmile-ai/mcp-agent",
+      "operational_status": "Pinned client/server compatibility passed for initialize/list/write/read with a host proxy extra; complete basic-agent model loop and in-flight cancellation not tested.",
+      "server": {
+        "repository": "https://github.com/modelcontextprotocol/servers",
+        "commit": "51b6382a3e827aceb6bce430b1208d69b93d95ea",
+        "path": "src/filesystem",
+        "package": "@modelcontextprotocol/server-filesystem",
+        "package_version_in_source": "2.0.0",
+        "pin_rule": "Use the pinned source revision; npm artifact identity must be verified separately before install."
+      },
+      "scope": {
+        "primary": "In-flight tool calls at the MCP client/server boundary",
+        "controls": [
+          "benign file write/read",
+          "already-committed file write accounting"
+        ],
+        "unsupported": [
+          "queued/delegated work",
+          "broker retries",
+          "durable queue recovery"
+        ],
+        "note": "Do not present this basic-agent target as covering all pilot scenarios."
+      },
+      "configuration_changes": [
+        "Restrict filesystem access to one disposable test directory.",
+        "Replace the basic read/fetch demonstration task with an explicitly requested file-write task.",
+        "Disable fetch for this profile; retain upstream MCP client/server transport and lifecycle.",
+        "For the compatibility preflight only, invoke the discovered write/read tools through the upstream Agent client without an LLM."
+      ],
+      "compatibility_preflight": {
+        "budget_minutes": 30,
+        "started_utc": "2026-10-20T20:52:19.362265+00:00",
+        "status": "passed_initialize_list_write_read_for_selected_pair",
+        "scope": "Pinned upstream MCP Agent client plus pinned filesystem server: initialize, list tools, write/read a disposable file; no stop tests or model calls.",
+        "completed_utc": "2026-10-20T20:56:33.646518+00:00",
+        "setup_and_test_elapsed_seconds": 254.284,
+        "within_30_minute_budget": true,
+        "attempts": [
+          "evidence/mcp-smoke-attempt1.json",
+          "evidence/mcp-smoke.json"
+        ],
+        "environment_extra": {
+          "socksio": "1.0.0",
+          "reason": "Host SOCKS proxy support; first failure occurred before protocol handshake."
+        },
+        "tracked_upstream_source_modified": false,
+        "stop_or_model_behavior_inference": "None: no cancellation, revocation, delegation, queue or LLM behavior was tested."
+      }
+    }
+  ],
+  "outcome_neutral_rules": [
+    "Keep both selected targets whether stop experiments pass, fail or are unsupported.",
+    "Record actual native cancellation support before mapping a scenario; absent support is a capability gap, not a fabricated native failure.",
+    "Do not add detached jobs, ignore cancellation or alter queue persistence in the baseline adapter to induce a failure.",
+    "Record every instrumentation/configuration patch separately from remediation patches.",
+    "If a target cannot be made runnable within six engineering hours, retain its setup evidence and publish a dated selection amendment before testing any replacement.",
+    "Pin MCP server, broker, worker and model versions and publish the complete experiment manifest before executing external stop trials.",
+    "Select two exact model identifiers and freeze sampling settings before live-model trials; no live-model result exists yet."
+  ],
+  "amendments": [
+    {
+      "date": "2026-10-20",
+      "reason": "Correct provenance, characterize template and Celery-level baseline, limit MCP scope, and authorize a 30-minute compatibility preflight before stop experiments.",
+      "external_stop_experiments_before_amendment": 0
+    }
+  ],
+  "original_selection_record": "records/selection-v1.json"
+}

@@ -1,0 +1,25 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "stopcheck-pilot"
+version = "0.1.2"
+description = "A reproducible systems-layer stop evaluation pilot for agent integrations"
+requires-python = ">=3.11"
+dependencies = ["langgraph==1.2.16"]
+
+[project.optional-dependencies]
+# The dashboard uses only the Python standard library; this extra is a stable
+# install target if web-only dependencies are ever needed.
+web = []
+
+[project.scripts]
+stopcheck = "stopcheck.__main__:main"
+stopcheck-web = "stopcheck.web.server:main"
+
+[tool.setuptools.packages.find]
+include = ["stopcheck*"]
+
+[tool.setuptools.package-data]
+"stopcheck.web" = ["static/*"]
